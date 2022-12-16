@@ -24,8 +24,13 @@ img {
     margin-bottom: 5%;
 }
 
-#svg {
+#logo {
     width: 10%;
+}
+
+#title {
+    width: 20%;
+    margin: 2%;
 }
 
 /*---}}}---*/
@@ -39,7 +44,7 @@ img {
 
 #search {
     background-color: #25313e;
-    width: 50%;
+    width: 55%;
     height: 44px;
     border: solid 1px #9CF; 
     display: flex;

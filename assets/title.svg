@@ -2,14 +2,16 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="150.50085mm"
-   height="46.74789mm"
-   viewBox="0 0 150.50086 46.747891"
+   width="145mm"
+   height="41.162979mm"
+   viewBox="0 0 145.00001 41.16298"
    version="1.1"
    id="svg5"
    inkscape:export-filename="bitmap.svg"
    inkscape:export-xdpi="96.235626"
    inkscape:export-ydpi="96.235626"
+   sodipodi:docname="title.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +26,16 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#505050"
      inkscape:document-units="mm"
-     showgrid="false" />
+     showgrid="false"
+     inkscape:zoom="2.1272028"
+     inkscape:cx="279.9451"
+     inkscape:cy="67.224433"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
   <defs
      id="defs2">
     <rect
@@ -38,7 +49,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-23.552813,-10.682329)">
+     transform="translate(-23.552813,-16.267239)">
     <g
        id="g3967"
        inkscape:label="FOX"
@@ -87,10 +98,6 @@
          id="path3949"
          inkscape:label="F" />
     </g>
-    <path
-       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00531;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:26.9;stroke-dasharray:none;stroke-opacity:1"
-       d="m 105.25909,11.264333 68.29135,-0.07877"
-       id="path4186" />
     <path
        style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.03166;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:26.9;stroke-dasharray:none;stroke-opacity:1"
        d="M 106.28781,56.914387 H 23.552813"
