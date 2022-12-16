@@ -1,0 +1,78 @@
+/*----------------[ GLOBAL ]----------------{{{*/
+body {
+    background-color: #10141b;
+    color: #FFF;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+img {
+    user-drag: none;  
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+/*---}}}---*/
+
+/*----------------[ GRAPHIC AND TITLE ]----------------{{{*/
+
+#svg_wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+#svg {
+    width: 10%;
+}
+
+/*---}}}---*/
+
+/*----------------[ SEARCH ENGINE ]----------------{{{*/
+
+#search_wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+#search {
+    background-color: #25313e;
+    width: 50%;
+    height: 44px;
+    border: solid 1px #9CF; 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#search_input {
+    all: unset;
+    color: #fff;
+    font: 16px;
+    height: 100%;
+    width: 100%;
+    padding: 6px 10px;
+
+}
+
+::placeholder {
+    Color: #FFF;
+    opacity: 0.7; 
+}
+
+#search_button {
+    all: unset;
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+}
+
+#search_button img {
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+}
+
+/*---}}}---*/
