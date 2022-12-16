@@ -76,3 +76,28 @@ img {
 }
 
 /*---}}}---*/
+
+/*----------------[ ANIMATED SCROLL ]----------------{{{*/
+
+.centre_grid {
+    display: grid;
+    place-items: center;
+    align-content: center;
+    min-height: 100vh;
+}
+
+.hidden {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateX(-5%);
+    transition: all 1s;
+    transition-delay: 750ms;
+}
+
+.shown {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(0);
+}
+
+/*---}}}---*/
