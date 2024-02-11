@@ -10,8 +10,8 @@ const config = {
     preprocess: preprocess(),
     kit: {
         adapter: adapter({
-            pages: "docs",
-            assets: "docs"
+            pages: "build",
+            assets: "build",
         }),
     }
 };
