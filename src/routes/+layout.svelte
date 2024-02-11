@@ -6,4 +6,4 @@
 	rel="stylesheet"
 />
 
-<link rel="stylesheet" href="./src/styles/global.scss">
+<!-- <link rel="stylesheet" href="./src/styles/global.scss"> -->

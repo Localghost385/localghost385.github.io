@@ -216,3 +216,7 @@
 
 <canvas id="canvas" bind:this={canvas} {width} {height}> </canvas>
 <input type="range" min="-0.1" max="3.0" step="0.1" value={slider} />
+
+<style>
+	@import '/src/styles/global.scss';
+</style>
