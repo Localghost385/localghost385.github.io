@@ -15,7 +15,7 @@ const config = {
         }),
         paths: {
             // change below to your repo name
-            base: dev ? "" : "/grace-murphy",
+            base: dev ? "" : "/homepage",
         },
     }
 };
