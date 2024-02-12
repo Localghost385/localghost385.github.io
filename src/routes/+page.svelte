@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { beforeAll } from 'vitest';
 
 	// define a grid of cells and a grid of points, each cell is a group of 4 points in a square, cells overlap
 	class point {
@@ -125,7 +124,7 @@
 	let width = 1600;
 	let height = 900;
 
-	let cellSize = 8;
+	let cellSize = 6;
 
 	function marchingSquares(cells: any[], threshold: number) {
 		cells.forEach((cellRow: any[]) => {
@@ -164,13 +163,11 @@
 		});
 	}
 
-	let slider = 0.5;
-
 	onMount(() => {
 		// set up ctx
 		ctx = canvas.getContext('2d');
 		let canvas_grid = new grid(width, height, cellSize);
-		let metaballs: metaball[] = createMetaballs(15, width, height, 80, 10);
+		let metaballs: metaball[] = createMetaballs(18, width, height, 75, 10);
 		// Store the previous state of metaballs
 		let prevMarchingSquaresState: string | null = null;
 
@@ -203,7 +200,7 @@
 
 			// Draw marching squares lines if they have changed
 			if (marchingSquaresChanged) {
-				marchingSquares(canvas_grid.cells, slider);
+				marchingSquares(canvas_grid.cells, 0.2);
 			}
 
 			requestAnimationFrame(animate);
@@ -212,10 +209,56 @@
 		// Start the animation loop
 		requestAnimationFrame(animate);
 	});
+
+	let searchTerm = '';
+
+	let input: HTMLInputElement;
+	onMount(() => {
+		input.focus();
+	});
+
+	function performSearch() {
+		const searchUrl = `https://www.duckduckgo.com/?q=${encodeURIComponent(searchTerm)}`;
+		window.open(searchUrl, '_blank');
+	}
+
 </script>
 
+<div class="main_content">
+	<div class="logo">
+		<div class="logo_outline" />
+		<img src="/logo.svg" alt="" class="logo_img">
+	</div>
+	<div class="searchbar">
+		<div class="searchbar_outline" />
+		<!-- searchbar -->
+		<input
+			type="text"
+			class="search_input"
+			placeholder="Search the web"
+			bind:value={searchTerm}
+			bind:this={input}
+			on:keypress={(e) => e.key === 'Enter' && performSearch()}
+		/>
+		<button class="search_button" on:click={performSearch}>Search</button>
+	</div>
+	<div class="links">
+		<div>
+			<div class="link_outline" />
+			<div class="link">{searchTerm} ste</div>
+		</div>
+		<div>
+			<div class="link_outline" />
+		</div>
+		<div>
+			<div class="link_outline" />
+		</div>
+		<div>
+			<div class="link_outline" />
+		</div>
+	</div>
+</div>
 <canvas id="canvas" bind:this={canvas} {width} {height}> </canvas>
-<input type="range" min="-0.1" max="3.0" step="0.1" value={slider} />
 
 <style>
 	@import '/src/styles/global.scss';
