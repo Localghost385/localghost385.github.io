@@ -124,7 +124,7 @@
 	let width = 1600;
 	let height = 900;
 
-	let cellSize = 6;
+	let cellSize = 10;
 
 	function marchingSquares(cells: any[], threshold: number) {
 		cells.forEach((cellRow: any[]) => {
