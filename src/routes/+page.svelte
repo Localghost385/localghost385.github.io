@@ -111,8 +111,8 @@
 			const y = Math.random() * maxHeight;
 			const radius = Math.random() * maxRadius;
 			const value = Math.random() * maxValue;
-			const dx = Math.random() * 5 - 1;
-			const dy = Math.random() * 5 - 1;
+			const dx = Math.random() * 2 - 1;
+			const dy = Math.random() * 2 - 1;
 			newMetaballs.push(new metaball(x, y, radius, value, dx, dy));
 		}
 		return newMetaballs;
@@ -124,7 +124,20 @@
 	let width = 1600;
 	let height = 900;
 
-	let cellSize = 10;
+	let cellSize = 8;
+	// set cellsize from local storage
+
+	function lerp(a: number, b: number, t: number): number {
+		return a * (1 - t) + b * t;
+	}
+
+	function lerpCoord(
+		pointA: [number, number],
+		pointB: [number, number],
+		t: number
+	): [number, number] {
+		return [lerp(pointA[0], pointB[0], t), lerp(pointA[1], pointB[1], t)];
+	}
 
 	function marchingSquares(cells: any[], threshold: number) {
 		cells.forEach((cellRow: any[]) => {
@@ -135,35 +148,58 @@
 				if (cell.points[2].value < threshold) index |= 4;
 				if (cell.points[3].value < threshold) index |= 8;
 
+				let x1: number = -1,
+					y1: number = -1;
+				let x2: number = -1,
+					y2: number = -1;
+
 				ctx.beginPath();
+				ctx.strokeStyle = '#b4befe';
 				if (index === 1 || index === 14) {
-					ctx.moveTo(cell.points[0].x + cellSize / 2, cell.points[0].y); //correct
-					ctx.lineTo(cell.points[0].x, cell.points[0].y + cellSize / 2);
+					x1 = cell.points[0].x + cellSize / 2;
+					y1 = cell.points[0].y;
+					x2 = cell.points[0].x;
+					y2 = cell.points[0].y + cellSize / 2;
 				} else if (index === 2 || index === 13) {
-					ctx.moveTo(cell.points[1].x, cell.points[1].y + cellSize / 2); //correct
-					ctx.lineTo(cell.points[1].x - cellSize / 2, cell.points[1].y);
+					x1 = cell.points[1].x;
+					y1 = cell.points[1].y + cellSize / 2;
+					x2 = cell.points[1].x - cellSize / 2;
+					y2 = cell.points[1].y;
 				} else if (index === 3 || index === 12) {
-					ctx.moveTo(cell.points[0].x, cell.points[0].y + cellSize / 2); //correct
-					ctx.lineTo(cell.points[1].x, cell.points[1].y + cellSize / 2);
+					x1 = cell.points[0].x;
+					y1 = cell.points[0].y + cellSize / 2;
+					x2 = cell.points[1].x;
+					y2 = cell.points[1].y + cellSize / 2;
 				} else if (index === 4 || index === 11) {
-					ctx.moveTo(cell.points[2].x, cell.points[2].y - cellSize / 2); //correct
-					ctx.lineTo(cell.points[2].x - cellSize / 2, cell.points[2].y);
+					x1 = cell.points[2].x;
+					y1 = cell.points[2].y - cellSize / 2;
+					x2 = cell.points[2].x - cellSize / 2;
+					y2 = cell.points[2].y;
 				} else if (index === 6 || index === 9) {
-					ctx.moveTo(cell.points[0].x + cellSize / 2, cell.points[0].y); //correct
-					ctx.lineTo(cell.points[3].x + cellSize / 2, cell.points[3].y);
+					x1 = cell.points[0].x + cellSize / 2;
+					y1 = cell.points[0].y;
+					x2 = cell.points[3].x + cellSize / 2;
+					y2 = cell.points[3].y;
 				} else if (index === 7 || index === 8) {
-					ctx.moveTo(cell.points[3].x, cell.points[3].y - cellSize / 2); //correct
-					ctx.lineTo(cell.points[3].x + cellSize / 2, cell.points[3].y);
+					x1 = cell.points[3].x;
+					y1 = cell.points[3].y - cellSize / 2;
+					x2 = cell.points[3].x + cellSize / 2;
+					y2 = cell.points[3].y;
 				} else if (index === 5) {
 				}
-				ctx.strokeStyle = '#b4befe';
+
+				let cod: [number, number] = lerpCoord([x1, y1], [x2, y2], 0.5);
+
+				ctx.moveTo(x1, y1);
+				ctx.lineTo(x2, y2);
+
 				ctx.lineWidth = 2;
 				ctx.stroke();
 			});
 		});
 	}
 
-	onMount(() => {
+	function ani() {
 		// set up ctx
 		ctx = canvas.getContext('2d');
 		let canvas_grid = new grid(width, height, cellSize);
@@ -200,14 +236,16 @@
 
 			// Draw marching squares lines if they have changed
 			if (marchingSquaresChanged) {
-				marchingSquares(canvas_grid.cells, 0.2);
+				marchingSquares(canvas_grid.cells, 0.5);
 			}
 
 			requestAnimationFrame(animate);
 		}
-
 		// Start the animation loop
 		requestAnimationFrame(animate);
+	}
+	onMount(() => {
+		ani();
 	});
 
 	let searchTerm = '';
@@ -217,10 +255,10 @@
 		input.focus();
 	});
 
-	function performSearch() {
-		const searchUrl = `https://www.duckduckgo.com/?q=${encodeURIComponent(searchTerm)}`;
-		window.open(searchUrl, '_blank');
-	}
+function performSearch() {
+  const searchUrl = `https://www.duckduckgo.com/?q=${encodeURIComponent(searchTerm)}`;
+  window.location.replace(searchUrl);
+}
 
 	let links = [
 		{
@@ -238,7 +276,6 @@
 				{ url: 'http://devdocs.io', name: 'devdocs' },
 				{ url: 'http://stackoverflow.com', name: 'stackoverflow' },
 				{ url: 'http://wikipedia.org', name: 'wikipedia' }
-
 			]
 		},
 		{
@@ -252,14 +289,20 @@
 		{
 			title: 'Array 4',
 			children: [
-				{ url: 'http://monkeytype.com', name: 'monkeytype' },
+				{ url: 'http://monkeytype.com', name: 'monkeytype' }
 				// { url: 'http://', name: '' }
 			]
 		}
 	];
+
+	let isHidden = false;
+
+	function toggleContent() {
+		isHidden = !isHidden;
+	}
 </script>
 
-<div class="main_content">
+<div class:hide={isHidden} class="main_content">
 	<div class="logo">
 		<div class="logo_outline" />
 		<svg
@@ -341,7 +384,6 @@
 	</div>
 	<div class="searchbar">
 		<div class="searchbar_outline" />
-		<!-- searchbar -->
 		<input
 			type="text"
 			class="search_input"
@@ -358,7 +400,9 @@
 				<div class="link_outline"></div>
 				<div class="link_title">{link.title}</div>
 				{#each link.children as child, i}
-				<a class="link" href={child.url} target="_blank" style="top: {(i*3)+ 5}vh;">>{child.name}</a>
+					<a class="link" href={child.url} target="_blank" style="top: {i * 3 + 5}vh;"
+						>>{child.name}</a
+					>
 				{/each}
 			</div>
 		{/each}
@@ -367,6 +411,40 @@
 
 <canvas id="canvas" bind:this={canvas} {width} {height}> </canvas>
 
+<button class="toggle" on:click={toggleContent}>
+	<div class="toggle_outline"></div>
+</button>
+
+<button
+	class="toggle1"
+	on:click={() => {
+		if (cellSize > 4) {
+			ctx = null;
+			cellSize--;
+			ani();
+		}
+	}}
+>
+<div class="toggle_outline"></div>
+</button>
+
+<button
+class="toggle2"
+on:click={() => {
+	if (cellSize < 20) {
+		ctx = null;
+		cellSize++;
+		ani();
+		}
+	}}
+>
+	<div class="toggle_outline"></div>
+</button>
+
 <style>
 	@import '/src/styles/global.scss';
+
+	.hide {
+		opacity: 0;
+	}
 </style>
